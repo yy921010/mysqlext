@@ -1,0 +1,45 @@
+{
+  "name": "mysqlnard",
+  "version": "1.0.0",
+  "description": "generate mysql statement through chain syntax",
+  "main": "./dist/generator.sql.js",
+  "types": "./dist/types/generator.sql.d.ts",
+  "scripts": {
+    "test": "jest --coverage",
+    "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
+    "build:types":"tsc --declaration -p ./ -t es2015 --emitDeclarationOnly --outDir ./dist/types",
+    "build":"tsc && yarn run build:types"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test && npm run test"
+    }
+  },
+  "keywords": [
+    "mysql",
+    "sql",
+    "generate",
+    "chain",
+    "syntax",
+    "mysql2"
+  ],
+  "author": "yy921010",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^26.0.18",
+    "@types/sqlstring": "^2.2.1",
+    "@typescript-eslint/eslint-plugin": "^4.9.1",
+    "@typescript-eslint/parser": "^4.9.1",
+    "eslint": "^7.15.0",
+    "eslint-config-prettier": "^7.0.0",
+    "eslint-plugin-prettier": "^3.2.0",
+    "husky": "^4.3.5",
+    "jest": "^26.6.3",
+    "prettier": "^2.2.1",
+    "typescript": "^4.1.2"
+  },
+  "dependencies": {
+    "sqlstring": "^2.3.2",
+    "ts-jest": "^26.4.4"
+  }
+}
