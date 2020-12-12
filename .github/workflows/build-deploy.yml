@@ -1,12 +1,11 @@
 name: build-deploy
-
 on:
   pull_request:
     paths-ignore:
       - '**.md'
   push:
     branches:
-      - main
+      - master
       - releases/*
     paths-ignore:
       - '**.md'
