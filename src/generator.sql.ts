@@ -1,5 +1,14 @@
 import { SqlGeneratorProp } from './generator.interface';
-import { isEmpty, convertEqual, andCombine, orCombine, commaCombine, sqlEscape, isString } from './utils';
+import {
+    isEmpty,
+    convertEqual,
+    andCombine,
+    orCombine,
+    commaCombine,
+    sqlEscape,
+    isString,
+    isMysqlKeyWord,
+} from './utils';
 type SqlType = 'select' | 'insert' | 'update' | 'delete';
 
 export class SqlGenerator {
@@ -104,7 +113,9 @@ export class SqlGenerator {
                 if (index === 0) {
                     valuesKey = commaCombine(Object.keys(item));
                 }
-                const values = Object.keys(item).map((key) => sqlEscape(item[key]));
+                const values = Object.keys(item).map((key) =>
+                    isMysqlKeyWord(item[key]) ? item[key] : sqlEscape(item[key]),
+                );
                 return `( ${commaCombine(values)} )`;
             });
             this.sqlMap.sqlStr = `${this.sqlMap.sqlStr} INTO ${table} ( ${valuesKey} ) VALUES ${commaCombine(
@@ -113,10 +124,12 @@ export class SqlGenerator {
         } else {
             if (Object(this.sqlMap.into)) {
                 const valueKeys = commaCombine(Object.keys(this.sqlMap.into));
-                const values = Object.keys(this.sqlMap.into).map((key) => sqlEscape(this.sqlMap.into[key]));
-                this.sqlMap.sqlStr = `${this.sqlMap.sqlStr} INTO ${table} ( ${valueKeys} ) VALUES (${commaCombine(
+                const values = Object.keys(this.sqlMap.into).map((key) =>
+                    isMysqlKeyWord(this.sqlMap.into[key]) ? this.sqlMap.into[key] : sqlEscape(this.sqlMap.into[key]),
+                );
+                this.sqlMap.sqlStr = `${this.sqlMap.sqlStr} INTO ${table} ( ${valueKeys} ) VALUES ( ${commaCombine(
                     values,
-                )})`;
+                )} )`;
             }
         }
     }

@@ -9,7 +9,18 @@ describe('insert sql', () => {
             })
             .from('table')
             .build();
-        expect(sql).toBe("INSERT INTO table ( username, password ) VALUES (1, 'username')");
+        expect(sql).toBe("INSERT INTO table ( username, password ) VALUES ( 1, 'username' )");
+    });
+
+    it('insert table with keyword', () => {
+        const sql = new SqlGenerator('insert')
+            .into({
+                create_at: 'CURRENT_DATE',
+                update_at: 'CURRENT_TIME',
+            })
+            .from('table')
+            .build();
+        expect(sql).toBe('INSERT INTO table ( create_at, update_at ) VALUES ( CURRENT_DATE, CURRENT_TIME )');
     });
 
     it('insert table batch', () => {
@@ -21,13 +32,13 @@ describe('insert sql', () => {
                 },
                 {
                     username: 'user_name',
-                    password: 'pass_word_user2',
+                    password: 'CURRENT_TIME',
                 },
             ])
             .from('table')
             .build();
         expect(sql).toBe(
-            "INSERT INTO table ( username, password ) VALUES ( 1, 'password' ), ( 'user_name', 'pass_word_user2' )",
+            "INSERT INTO table ( username, password ) VALUES ( 1, 'password' ), ( 'user_name', CURRENT_TIME )",
         );
     });
 });
