@@ -24,7 +24,8 @@ npm install mysqlnard --save
 ```sh
 import {SqlGenerator} from 'mysqlnard';
 
-const sql = new SqlGenerator('select').from('table').build()
+const sql = new SqlGenerator('select').from('table').build();
+// SELECT * FROM table
 ```
 
 ## Run tests
