@@ -27,12 +27,12 @@ export class SqlGenerator {
         return this;
     }
 
-    into(data: Record<string, unknown> | Record<string, unknown>[]): SqlGenerator {
+    into<T>(data: T): SqlGenerator {
         this.sqlMap.into = data;
         return this;
     }
 
-    field(...fields: string[] | Record<string, unknown>[]): SqlGenerator {
+    field<T>(...fields: T[]): SqlGenerator {
         this.sqlMap.field = [...fields];
         return this;
     }

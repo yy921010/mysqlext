@@ -1,6 +1,6 @@
 {
   "name": "mysqlnard",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "generate mysql statement through chain syntax",
   "main": "./dist/generator.sql.js",
   "types": "./dist/types/generator.sql.d.ts",

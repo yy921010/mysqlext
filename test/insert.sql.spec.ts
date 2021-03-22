@@ -22,10 +22,13 @@ describe('insert sql', () => {
             .build();
         expect(sql).toBe('INSERT INTO table ( create_at, update_at ) VALUES ( CURRENT_DATE, CURRENT_TIME )');
     });
-
+    interface TestObj {
+        username: number | string;
+        password: string;
+    }
     it('insert table batch', () => {
         const sql = new SqlGenerator('insert')
-            .into([
+            .into<TestObj[]>([
                 {
                     username: 1,
                     password: 'password',
